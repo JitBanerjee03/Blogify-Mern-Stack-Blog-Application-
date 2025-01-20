@@ -1,0 +1,12 @@
+.outerFormDiv{
+    margin-top: 2%;
+    margin-left: 35%;
+    margin-right: 35%;
+    padding-left: 5%;
+    padding-right: 5%;
+    border: 5px solid #0d6efd;
+}
+
+.EmailPasswordDiv{
+    margin-bottom: 10%;
+}
