@@ -30,7 +30,7 @@ const AddBlog=()=>{
     const Title=useRef();
     const Summary=useRef();
     const Category=useRef();
-    const fileData=useRef();
+    //const fileData=useRef();
     const content=useRef();
     
     const onSubmitHandle=(event)=>{
@@ -38,7 +38,7 @@ const AddBlog=()=>{
         console.log('Title = ',Title.current.value);
         console.log('Summary = ',Summary.current.value);
         console.log('Category = ',Category.current.value);
-        console.log('fileData = ',fileData.current.value);
+        //console.log('fileData = ',fileData.current.value);
         console.log('content = ',content.current.value);
 
         const formData=new FormData();
@@ -46,8 +46,12 @@ const AddBlog=()=>{
         formData.set('Title',Title.current.value);
         formData.set('Summary',Summary.current.value);
         formData.set('Category',Category.current.value);
-        formData.set('fileData',fileData.current.value);
+        //formData.set('fileData',fileData.current.value);
         formData.set('Content',content.current.value);
+    }
+    
+    const fileData=(event)=>{
+        console.log(event.target.files[0]);
     }
 
     return(
@@ -82,7 +86,9 @@ const AddBlog=()=>{
                 </div>
                 
                 <div class="input-group mb-3">
-                <input ref={fileData} type="file" class="form-control" id="inputGroupFile02"/>
+                <input type="file" class="form-control" id="inputGroupFile02" 
+                    onChange={fileData}
+                />
                 <label class="input-group-text" for="inputGroupFile02"><FaFileUpload /></label>
                 </div>
                 <ReactQuill ref={content} theme="snow" modules={modules} formats={formats}/>
