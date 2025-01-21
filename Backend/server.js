@@ -26,8 +26,12 @@ const userRoute=require('./routes/userRoute')
 app.use('/user',userRoute);
 
 //importing categoryRoute
-const categoryroute=require('./routes/categoryRoute');
-app.use('/addcategory',categoryroute);
+const categoryRoute=require('./routes/categoryRoute');
+app.use('/addcategory',categoryRoute);
+
+//importing categoryRoute
+const blogRoute=require('./routes/blogRoute');
+app.use('/blog',blogRoute);
 
 app.listen(3000,()=>{
     console.log('Server is live now!');
