@@ -4,6 +4,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { FaFileUpload } from "react-icons/fa";
 import { profileContext } from "../../../store/ContextProvider";
+import { useNavigate } from "react-router-dom";
 
 const modules = {
     toolbar: [
@@ -23,36 +24,49 @@ const formats = [
 ]
 
 const AddBlog=()=>{
-    //const [value, setValue] = useState('');
     
-    const {Categories}=useContext(profileContext);
+    const navigate=useNavigate();
+    const {Categories,setBlogContent}=useContext(profileContext);
     
     const Title=useRef();
     const Summary=useRef();
     const Category=useRef();
-    //const fileData=useRef();
     const content=useRef();
     
+    const [fileData,setFileData]=useState();
+
     const onSubmitHandle=(event)=>{
         event.preventDefault();
-        console.log('Title = ',Title.current.value);
-        console.log('Summary = ',Summary.current.value);
-        console.log('Category = ',Category.current.value);
-        //console.log('fileData = ',fileData.current.value);
-        console.log('content = ',content.current.value);
 
         const formData=new FormData();
 
         formData.set('Title',Title.current.value);
         formData.set('Summary',Summary.current.value);
         formData.set('Category',Category.current.value);
-        //formData.set('fileData',fileData.current.value);
+        formData.set('fileData',fileData);
         formData.set('Content',content.current.value);
+
+        const postingDatainBackEnd=async()=>{
+            const fetchedData=await fetch('http://localhost:3000/blog/postBlog',{
+                method:'POST',
+                credentials:'include',
+                body:formData
+            })
+
+            if(fetchedData.status===401){
+                alert('Unauthorised Access !');
+            }else if(fetchedData.status===500){
+                alert('Internal error from the server !')
+            }else{
+                const responseData=await fetchedData.json();
+                alert('Blog added Successfully !');
+                setBlogContent('All');
+            }
+        }
+        postingDatainBackEnd();
+        navigate('/');
     }
-    
-    const fileData=(event)=>{
-        console.log(event.target.files[0]);
-    }
+
 
     return(
         <>
@@ -87,7 +101,7 @@ const AddBlog=()=>{
                 
                 <div class="input-group mb-3">
                 <input type="file" class="form-control" id="inputGroupFile02" 
-                    onChange={fileData}
+                    onChange={(event)=>setFileData(event.target.files[0])}
                 />
                 <label class="input-group-text" for="inputGroupFile02"><FaFileUpload /></label>
                 </div>

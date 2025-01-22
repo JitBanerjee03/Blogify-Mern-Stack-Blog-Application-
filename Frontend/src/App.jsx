@@ -7,6 +7,7 @@ import ContextProvider from '../store/ContextProvider'
 import BlogBody from './Pages/Components/BlogBody'
 import BlogHeader from './Pages/Components/BlogHeader'
 import Footer from './Components/Footer/Footer'
+import SingleBlogPost from './Pages/Components/SingleBlogPost'
 
 const router=createBrowserRouter([
   {
@@ -30,6 +31,16 @@ const router=createBrowserRouter([
     <div>
       <BlogHeader/>
       <BlogBody/>
+      <Footer/>
+    </div>
+  },
+
+  {
+    path:'/singleBlog',
+    element:
+    <div>
+      <BlogHeader/>
+      <SingleBlogPost/>
       <Footer/>
     </div>
   }

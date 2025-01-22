@@ -52,13 +52,13 @@ const Header=()=>{
                         {User.length!==0?
                         <div style={{marginLeft:"48%",display:"flex",gap:"1.5%"}}>
                             <h2 style={{textAlign:"center"}}>{User}</h2>
-                            <button type="button" class="btn btn-secondary" onClick={addNewBlog}>Add Blog</button>
-                            <button type="button" class="btn btn-secondary" onClick={()=>logOut()}>Log Out</button>
+                            <button type="button" className="btn btn-secondary" onClick={addNewBlog}>Add Blog</button>
+                            <button type="button" className="btn btn-secondary" onClick={()=>logOut()}>Log Out</button>
                         </div>
                         :
                         <div className="col-4 d-flex justify-content-end align-items-center" style={{gap:"12px"}}>
-                            <button type="button" class="btn btn-secondary" onClick={()=>goToLoginPage()}>Login</button>
-                            <button type="button" class="btn btn-secondary" onClick={()=>goToSignUpPage()}>Signup</button>
+                            <button type="button" className="btn btn-secondary" onClick={()=>goToLoginPage()}>Login</button>
+                            <button type="button" className="btn btn-secondary" onClick={()=>goToSignUpPage()}>Signup</button>
                         </div>
                         }
                     </div>

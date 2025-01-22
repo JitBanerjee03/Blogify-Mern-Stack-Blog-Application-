@@ -1,16 +1,74 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 
 export const profileContext=createContext([{
   User:'', 
   validUser:()=>{},
   LogOutMethod:()=>{},
-  Categories:[{}]
+  Categories:[{}],
+  setBlogContent:()=>{},
+  blogContent:[{}],
+  curCategory:String,
 }])
 
 const ContextProvider=({children})=>{
     const [User,setUser]=useState('');
     
     const [Categories,setCategories]=useState([]);
+    
+    const [curCategory,setCurCategory]=useState('All');
+
+    const changeCurCategory=(category)=>{
+        setCurCategory(category);
+    }
+
+    const getAllBlogs=async()=>{
+        const fetchedData=await fetch('http://localhost:3000/blog/getAllBlogs',{
+            headers:{'Content-Type':'application/json'},
+            credentials:'include',
+        })
+
+        const responseData=await fetchedData.json();
+        console.log(responseData);
+        return responseData;
+    }
+
+    const getCategoryBlogs=async(category)=>{
+        const fetchedData=await fetch(`http://localhost:3000/blog/getAllBlogs/${category}`,{
+            headers:{'Content-Type':'application/json'},
+            credentials:'include',
+        })
+
+        const responseData=await fetchedData.json();
+        console.log(responseData);
+        return responseData;
+    }
+
+    const reducerBlogContent=(curstate,action)=>{
+        if(action.type==='All'){
+            return action.payLoad;
+        }else{
+            return action.payLoad;
+        }      
+    }
+    
+    const [blogContent,dispatchBlogContent]=useReducer(reducerBlogContent,[]);
+
+    const setBlogContent=async(blogType)=>{
+        changeCurCategory(blogType);        
+        if(blogType==='All'){
+            const actionObj={
+                type:'All',
+                payLoad:await getAllBlogs()
+            }
+            dispatchBlogContent(actionObj);
+        }else{
+            const actionObj={
+                type:blogType,
+                payLoad:await getCategoryBlogs(blogType)
+            }
+            dispatchBlogContent(actionObj);
+        }
+    }
 
     useEffect(()=>{
         const setAllCategories=async()=>{
@@ -25,8 +83,26 @@ const ContextProvider=({children})=>{
                 setCategories(responseData);
             }
         }
+        
+        const setInitialBlogPost=async()=>{
+            const fetchedData=await fetch('http://localhost:3000/blog/getAllBlogs',{
+                headers:{'Content-Type':'application/json'},
+                credentials:'include',
+            })
+
+            const responseData=await fetchedData.json();
+            console.log(responseData);
+
+            const actionObj={
+                type:'All',
+                payLoad:responseData
+            }
+
+            dispatchBlogContent(actionObj);
+        }
 
         setAllCategories();
+        setInitialBlogPost();
     },[])
 
     const validUser=async()=>{
@@ -49,7 +125,7 @@ const ContextProvider=({children})=>{
     const LogOutMethod=()=>{
         setUser('');
     }
-    return <profileContext.Provider value={{User,validUser,LogOutMethod,Categories}}>
+    return <profileContext.Provider value={{User,validUser,LogOutMethod,Categories,setBlogContent,blogContent,curCategory}}>
         {children}
     </profileContext.Provider>
 }

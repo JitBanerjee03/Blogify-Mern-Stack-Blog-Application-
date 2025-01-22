@@ -3,6 +3,7 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const app=express();
 const db=require('./db');
+
 app.use(cookieParser())
 app.use(cors({credentials:true,origin:'http://localhost:5173'}));
 const bodyParser=require('body-parser');
@@ -13,6 +14,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+// parse some custom thing into a Buffer
+app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }))
+
+app.use('/uploads',express.static(__dirname+'/uploads'));
 app.get('/',(req,res)=>{
     try{
         res.send("Hello from the server side!");

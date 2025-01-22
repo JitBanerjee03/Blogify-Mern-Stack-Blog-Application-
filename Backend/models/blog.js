@@ -17,8 +17,13 @@ const blogSchema=mongoose.Schema({
         required:true
     },
 
-    fileData:{
-
+    content:{
+        type:String,
+        required:true
+    },
+    
+    coverFilePath:{
+        type:String
     },
 
     postedBy:{
