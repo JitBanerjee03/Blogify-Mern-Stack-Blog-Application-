@@ -1,0 +1,11 @@
+.outerDiv{
+    margin-top: 1.5%;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 3%;
+    border: 5px solid #0d6efd
+}
+
+.innerDiv{
+    height: 1%;
+}

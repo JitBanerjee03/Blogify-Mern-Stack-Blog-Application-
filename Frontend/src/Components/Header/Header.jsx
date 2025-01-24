@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom"
 import { profileContext } from "../../../store/ContextProvider";
+import { Link } from "react-router-dom";
 
 const Header=()=>{
     const navigate=useNavigate();
     
-    const {User,LogOutMethod}=useContext(profileContext);
+    const {User,LogOutMethod,handleUserDetail}=useContext(profileContext);
 
     const goToLoginPage=()=>{
         navigate('/login');
@@ -37,7 +38,14 @@ const Header=()=>{
     const addNewBlog=()=>{
         navigate('addBlog');
     }
+    
+    const handleUserDetailOnClick=async(event)=>{
+        event.preventDefault();
 
+        await handleUserDetail();
+
+        navigate('/userInfo');
+    }
     return (
         <>
             <div style={{backgroundColor:"#e5eaf5"}}>
@@ -51,7 +59,9 @@ const Header=()=>{
                     </div>
                         {User.length!==0?
                         <div style={{marginLeft:"48%",display:"flex",gap:"1.5%"}}>
-                            <h2 style={{textAlign:"center"}}>{User}</h2>
+                            <Link to='/userInfo' style={{textAlign:"center",textDecoration:"none"}}
+                                onClick={handleUserDetailOnClick}
+                            ><h2 style={{color:"black"}}>{User}</h2></Link>
                             <button type="button" className="btn btn-secondary" onClick={addNewBlog}>Add Blog</button>
                             <button type="button" className="btn btn-secondary" onClick={()=>logOut()}>Log Out</button>
                         </div>

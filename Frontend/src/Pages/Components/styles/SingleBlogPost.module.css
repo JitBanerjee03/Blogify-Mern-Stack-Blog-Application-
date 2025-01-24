@@ -1,0 +1,16 @@
+.blogContentOuterDiv{
+    display: flex;
+    margin-top: 3%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.contentDiv{
+    width: 50%;
+    padding-right: 5%;
+}
+
+.imageDiv{
+    width: 50%;
+    padding-left: 5%;
+}

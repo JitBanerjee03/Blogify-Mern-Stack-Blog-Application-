@@ -1,9 +1,6 @@
 import { useContext } from "react";
-import { profileContext } from "../../../store/ContextProvider";
 
 const Footer=()=>{
-    const {Categories}=useContext(profileContext);
-    console.log(Categories);
     return(
         <>
             <div style={{backgroundColor:"#304146",color:"white"}}>

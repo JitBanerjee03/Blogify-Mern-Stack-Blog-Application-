@@ -8,6 +8,10 @@ export const profileContext=createContext([{
   setBlogContent:()=>{},
   blogContent:[{}],
   curCategory:String,
+  handleSingleBlogPost:()=>{},
+  curSingleBlogPost:{},
+  userDetails:{},
+  handleUserDetail:()=>{}
 }])
 
 const ContextProvider=({children})=>{
@@ -16,7 +20,13 @@ const ContextProvider=({children})=>{
     const [Categories,setCategories]=useState([]);
     
     const [curCategory,setCurCategory]=useState('All');
+    
+    const [curSingleBlogPost,setSingleBlogPost]=useState({});
 
+    const handleSingleBlogPost=(blog)=>{
+        setSingleBlogPost(blog);
+    }
+    
     const changeCurCategory=(category)=>{
         setCurCategory(category);
     }
@@ -28,7 +38,6 @@ const ContextProvider=({children})=>{
         })
 
         const responseData=await fetchedData.json();
-        console.log(responseData);
         return responseData;
     }
 
@@ -39,7 +48,6 @@ const ContextProvider=({children})=>{
         })
 
         const responseData=await fetchedData.json();
-        console.log(responseData);
         return responseData;
     }
 
@@ -91,7 +99,6 @@ const ContextProvider=({children})=>{
             })
 
             const responseData=await fetchedData.json();
-            console.log(responseData);
 
             const actionObj={
                 type:'All',
@@ -112,8 +119,8 @@ const ContextProvider=({children})=>{
             headers:{'Content-Type':'application/json'},
             credentials:'include',
         })
-
-        if(fetchedData.status!==200 && fetchedData.status!==500){
+        console.log(fetchedData.status);
+        if(fetchedData.status!==200 || fetchedData.status===500){
             console.log("You are not a valid user!");
         }else if(fetchedData.status===200){
             const user=await fetchedData.json();
@@ -125,7 +132,22 @@ const ContextProvider=({children})=>{
     const LogOutMethod=()=>{
         setUser('');
     }
-    return <profileContext.Provider value={{User,validUser,LogOutMethod,Categories,setBlogContent,blogContent,curCategory}}>
+
+    const [userDetails,setUserDetails]=useState();
+
+    const handleUserDetail=async()=>{
+        const fetchedData=await fetch('http://localhost:3000/user/getUser',{
+            method:'GET',
+            headers:{'Content-Type':'application/json'},
+            credentials:'include',
+        })
+
+        const responseData=await fetchedData.json();
+
+        setUserDetails(responseData);
+    }
+
+    return <profileContext.Provider value={{User,validUser,LogOutMethod,Categories,setBlogContent,blogContent,curCategory,handleSingleBlogPost,curSingleBlogPost,userDetails,handleUserDetail}}>
         {children}
     </profileContext.Provider>
 }

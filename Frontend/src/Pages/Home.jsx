@@ -11,9 +11,6 @@ const Home=()=>{
             setBlogContent(category);
             console.log(blogContent);
         }
-        
-        console.log(curCategory);
-        console.log(blogContent);
     return(
         <>
             <Header/>

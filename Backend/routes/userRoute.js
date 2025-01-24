@@ -2,7 +2,7 @@ const express=require('express')
 const user=require('../models/user');
 const router=express.Router();
 const {generatesessionToken,tokenValidation}=require('../Auth');
-
+const jwt=require('jsonwebtoken');
 router.post('/signup',async(req,res)=>{  //middleware to add new user in the database
     try{
 
@@ -19,7 +19,6 @@ router.post('/login',async(req,res)=>{  //middleware for login for a particular 
     try{
        
         const isValidUser=await user.findOne({email:req.body.email});
-        //console.log(isValidUser);
         if(!isValidUser){
             res.status(401).json({message:"Unauthorised Access !"});
         }else{
@@ -46,7 +45,6 @@ router.get('/profile',tokenValidation,async(req,res)=>{  //protected route for t
     try{
         const payLoad=req.user;
         const isValidUser=await user.findOne({email:payLoad.email});
-
         if(!isValidUser){
             res.status(401).json('Unauthorised Access');
         }else{
@@ -72,5 +70,17 @@ router.get('/logout',tokenValidation,async(req,res)=>{  //end point for logout f
     }
 })
 
-
+router.get('/getUser',tokenValidation,async(req,res)=>{  //protected route for the validating the token from cookies and give response according to it
+    try{
+        const payLoad=req.user;
+        const isValidUser=await user.findOne({email:payLoad.email});
+        if(!isValidUser){
+            res.status(401).json('Unauthorised Access');
+        }else{
+            res.status(200).json(isValidUser);
+        }
+    }catch(err){
+        res.status(500).json({message:"error form the server side"});
+    }
+})
 module.exports=router;

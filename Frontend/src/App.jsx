@@ -8,6 +8,8 @@ import BlogBody from './Pages/Components/BlogBody'
 import BlogHeader from './Pages/Components/BlogHeader'
 import Footer from './Components/Footer/Footer'
 import SingleBlogPost from './Pages/Components/SingleBlogPost'
+import UserInfo from './Pages/UserInfo'
+import CountryProvider from '../store/CountryProvider'
 
 const router=createBrowserRouter([
   {
@@ -22,7 +24,10 @@ const router=createBrowserRouter([
 
   {
     path:'/SignUp',
-    element:<SignUp/>
+    element:
+      <CountryProvider>
+        <SignUp/>
+      </CountryProvider>
   },
 
   {
@@ -41,6 +46,16 @@ const router=createBrowserRouter([
     <div>
       <BlogHeader/>
       <SingleBlogPost/>
+      <Footer/>
+    </div>
+  },
+
+  {
+    path:'/userInfo',
+    element:
+    <div>
+      <BlogHeader/>
+      <UserInfo/>
       <Footer/>
     </div>
   }
