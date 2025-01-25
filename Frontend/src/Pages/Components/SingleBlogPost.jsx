@@ -21,7 +21,7 @@ const SingleBlogPost=()=>{
                     <h3 className="display-6 fst-italic">{curSingleBlogPost.title}</h3>
                     <div style={{marginTop:"5%",display:'flex'}}>
                         <p style={{fontSize:"1.2rem"}}><ReactTimeAgo date={curSingleBlogPost.postedAt}/> by </p>
-                        <p style={{marginLeft:"2%",fontSize:"1.2rem"}}>{/*curSingleBlogPost.postedBy.firstName*/}</p>
+                        <p style={{marginLeft:"2%",fontSize:"1.2rem"}}>{curSingleBlogPost.postedBy.firstName}</p>
                     </div>
                     <p className="lead my-3">{curSingleBlogPost.summary}</p>
                     </div>

@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import css from './styles/SignupBody.module.css';
 import StateSignup from "./StateSignup";
+import CitySignUp from "./CitySignUp";
 
 const SignUpBody=({countryList})=>{
 
@@ -20,7 +21,7 @@ const SignUpBody=({countryList})=>{
     const comfirmPassword=useRef('');
     
     const [stateList,setStateList]=useState();
-
+    const [cityList,setCityList]=useState();
     const addNewUser=async(event)=>{
         event.preventDefault();
         if(password.current.value===comfirmPassword.current.value){
@@ -111,15 +112,15 @@ const SignUpBody=({countryList})=>{
                     </div>
                 </div>
                 
-                <StateSignup stateList={stateList} state={state}/>
-
-                <div className="col-md-4" style={{marginBottom:"1%"}}>
+                <StateSignup countryList={countryList} country={country} setCityList={setCityList} stateList={stateList} state={state}/>
+                <CitySignUp cityList={cityList} city={city}/>
+                {/*<div className="col-md-4" style={{marginBottom:"1%"}}>
                     <label htmlFor="validationCustom06" className="form-label">City</label>
                     <input ref={city} type="text" className="form-control" id="validationCustom06" required/>
                     <div className="invalid-feedback">
                     Please provide a valid city.
                     </div>
-                </div>
+                </div>*/}
                 
                 <div className="col-md-4" style={{marginBottom:"1%"}}>
                     <label htmlFor="validationCustom07" className="form-label">Zip</label>
