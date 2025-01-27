@@ -62,6 +62,8 @@ const ContentBody=({blogItem,handleSingleBlogPost,setBlogContent})=>{
 
         if(fetchedData.status===401 || fetchedData.status===500){
             alert('You have to login first !');
+        }else if(fetchedData.status===400){
+            alert('You can downVote only once');
         }else{
             setBlogContent('All');
         }

@@ -116,6 +116,49 @@ router.put('/upVoteBlog',tokenValidation,async(req,res)=>{  //end point to upvot
 
 router.put('/downVoteBlog',tokenValidation,async(req,res)=>{  //end point to downvote a particular Blog
     try{
+
+        const blogData=await blog.findOne({_id:req.body.id});
+        console.log(blogData);
+
+        if(!blogData){
+            res.status(404).json('Resourse does not exists !');
+        }else{
+            const index=blogData.downVotedBy.findIndex(votes=>votes.userId.equals(req.user.id));
+            console.log(index);
+
+            if(index!==-1){
+                res.status(400).json('Can downvote only once');
+            }else{
+                const noOfDownVotes=blogData.noOfDownVotes+1;
+                blogData.downVotedBy.push({userId:req.user.id});
+
+                const indexUpVote=blogData.upVotedBy.findIndex(votes=>votes.userId.equals(req.user.id));
+
+                if(indexUpVote!==-1){
+                    blogData.upVotedBy.splice(indexUpVote,1);
+                    const noOfUpVotes=blogData.noOfUpVotes-1;
+
+                    await blog.findByIdAndUpdate(blogData._id,{
+                        noOfUpVotes:noOfUpVotes,
+                        noOfDownVotes:noOfDownVotes,
+                        upVotedBy:blogData.upVotedBy,
+                        downVotedBy:blogData.downVotedBy
+                    },{
+                        new : true,
+                        runValidators:true
+                    })
+
+                    res.status(200).json('Ok');
+                }else{
+                    await blog.findByIdAndUpdate(blogData._id,{
+                        noOfDownVotes:noOfDownVotes,
+                        downVotedBy:blogData.downVotedBy
+                    })
+
+                    res.status(200).json('ok'); 
+                }
+            }
+        }
     }catch(err){
         res.status(500).json('Internal Server Error');
     }
