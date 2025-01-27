@@ -9,7 +9,7 @@ import ru from 'javascript-time-ago/locale/ru'
 TimeAgo.addLocale(en)
 TimeAgo.addLocale(ru)
 import ReactTimeAgo from 'react-time-ago'
-const ContentBody=({blogItem,handleSingleBlogPost})=>{
+const ContentBody=({blogItem,handleSingleBlogPost,setBlogContent})=>{
     const navigate=useNavigate();
 
     const onClickEventSinglePost=async(event)=>{
@@ -20,14 +20,53 @@ const ContentBody=({blogItem,handleSingleBlogPost})=>{
             headers:{'Content-Type':'application/json'},
             credentials:'include',
         })
-        
+        console.log(fetchedData.status)
         if(fetchedData.status===401 || fetchedData.status===500){
             alert('You have to login first !');
+        }else if(fetchedData.status===400){
+            alert('Can upvote only once');
         }else{
             handleSingleBlogPost(blogItem);
             navigate('/singleBlog');  
         }
     }
+
+    const handleUpvote=async(blogItem)=>{
+        const fetchedData=await fetch('http://localhost:3000/blog/upVoteBlog',{
+            method:'PUT',
+            headers:{'Content-Type':'application/json'},
+            credentials:'include',
+            body:JSON.stringify({
+                id:blogItem._id
+            })
+        })
+        console.log(fetchedData.status);
+        if(fetchedData.status===401 || fetchedData.status===500){
+            alert('You need to login first !');
+        }else if(fetchedData.status===400){
+            alert('You can upvote only once')
+        }else{
+            setBlogContent('All');
+        }
+    }
+
+    const handleDownvote=async(blogItem)=>{
+        const fetchedData=await fetch('http://localhost:3000/blog/downVoteBlog',{
+            method:'PUT',
+            headers:{'Content-Type':'application/json'},
+            credentials:'include',
+            body:JSON.stringify({
+                id:blogItem._id
+            })
+        })
+
+        if(fetchedData.status===401 || fetchedData.status===500){
+            alert('You have to login first !');
+        }else{
+            setBlogContent('All');
+        }
+    }
+
     return(
         <>
             <div className={`p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary ${css.blogContentOuterDiv}`}>
@@ -44,8 +83,8 @@ const ContentBody=({blogItem,handleSingleBlogPost})=>{
                     >Continue reading...</Link></p>
                     </div>
                     <div style={{display:"flex",marginTop:"2%",gap:"5%"}}>
-                        <div><BiUpvote size={25}/>{blogItem.noOfUpVotes}</div> 
-                        <div><BiDownvote size={25}/>{blogItem.noOfDownVotes}</div>            
+                        <div><BiUpvote size={25} onClick={()=>handleUpvote(blogItem)}/>{blogItem.noOfUpVotes}</div> 
+                        <div><BiDownvote size={25} onClick={()=>handleDownvote(blogItem)}/>{blogItem.noOfDownVotes}</div>          
                     </div>
                 </div>
 

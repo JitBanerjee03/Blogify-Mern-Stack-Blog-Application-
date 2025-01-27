@@ -5,6 +5,8 @@ const multer=require('multer');
 const uploadMiddleWare = multer({ dest: 'uploads/' })
 const fs=require('fs');
 const jwt=require('jsonwebtoken');
+const { tokenValidation } = require('../Auth');
+const { default: mongoose } = require('mongoose');
 require('dotenv').config();
 
 const router=express.Router();
@@ -65,6 +67,57 @@ router.get('/getAllBlogs/:blogType',async(req,res)=>{  //end point to get blogs 
         res.status(200).json(responseData);
     }catch(err){
         res.status(500).json('Internal server error !');
+    }
+})
+
+router.put('/upVoteBlog',tokenValidation,async(req,res)=>{  //end point to upvote a particular Blog
+    try{
+        const blogData=await blog.findOne({_id:req.body.id});
+        if(!blogData){
+            res.status(404).json('Resourse does not exists !');
+        }else{
+            const index=blogData.upVotedBy.findIndex(votes => votes.userId.equals(req.user.id));
+            if(index!==-1){
+                res.status(400).json('Can upvote only once');
+                return ;
+            }else{
+                const noUpvotes=blogData.noOfUpVotes+1;
+                blogData.upVotedBy.push({userId:req.user.id});
+                const indexDownVote=blogData.downVotedBy.findIndex(votes=>votes.userId.equals(req.user.id));
+                if(indexDownVote!==-1){
+                    blogData.downVotedBy.splice(indexDownVote,1);
+                    const downVotes=blogData.noOfDownVotes-1;
+                    
+                    await blog.findByIdAndUpdate(blogData._id,{
+                        noOfUpVotes:noUpvotes,
+                        noOfDownVotes:downVotes,
+                        upVotedBy:blogData.upVotedBy,
+                        downVotedBy:blogData.downVotedBy
+                    },{
+                        new : true,
+                        runValidators:true
+                    })
+
+                    res.status(200).json('Ok');
+                }else{
+                    await blog.findByIdAndUpdate(blogData._id,{
+                        noOfUpVotes:noUpvotes,
+                        upVotedBy:blogData.upVotedBy
+                    })
+
+                    res.status(200).json('ok');
+                }
+            }
+        }
+    }catch(err){
+        res.status(500).json('Internal Server Error');
+    }
+})
+
+router.put('/downVoteBlog',tokenValidation,async(req,res)=>{  //end point to downvote a particular Blog
+    try{
+    }catch(err){
+        res.status(500).json('Internal Server Error');
     }
 })
 

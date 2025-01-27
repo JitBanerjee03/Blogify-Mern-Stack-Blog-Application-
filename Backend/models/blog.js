@@ -42,12 +42,30 @@ const blogSchema=mongoose.Schema({
         default:0,
         required:false
     },
+    
+    upVotedBy:[
+        {
+            userId:{
+                type:mongoose.Schema.Types.ObjectId,
+                ref:'user'
+            }            
+        }
+    ],
 
     noOfDownVotes:{
         type:Number,
         default:0,
         required:false
-    }
+    },
+
+    downVotedBy:[
+        {
+            userId:{
+                type:mongoose.Schema.Types.ObjectId,
+                ref:'user'
+            }
+        }
+    ],
 })
 
 const blogModel=mongoose.model('blog',blogSchema);
