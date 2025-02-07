@@ -3,6 +3,8 @@ import Footer from "../Components/Footer/Footer";
 import { profileContext } from "../../store/ContextProvider";
 import { useContext, useState } from "react";
 import Content from "../Components/Content/Content";
+import Loader from "../Components/Loader/Loader"
+
 const Home=()=>{
         const {Categories,setBlogContent,curCategory,blogContent}=useContext(profileContext);
         
