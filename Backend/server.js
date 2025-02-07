@@ -5,7 +5,7 @@ const app=express();
 const db=require('./db');
 
 app.use(cookieParser())
-app.use(cors({credentials:true,origin:'http://localhost:5174'}));
+app.use(cors({credentials:true,origin:'https://blogify-mern-app-qptl.onrender.com'}));
 const bodyParser=require('body-parser');
 
 // parse application/x-www-form-urlencoded
