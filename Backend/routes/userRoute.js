@@ -32,7 +32,7 @@ router.post('/login',async(req,res)=>{  //middleware for login for a particular 
                     user:isValidUser.firstName
                 }
                 const jwtToken=await generatesessionToken(payLoad);
-                res.cookie('token', jwtToken, { httpOnly: true, sameSite: 'None', secure: true }).json({ message: jwtToken });
+                res.cookie('token', jwtToken, { httpOnly: true, sameSite: 'None', secure: process.env.NODE_ENV === 'production' }).json({ message: jwtToken });
             }
         }
     }catch(err){
@@ -61,7 +61,7 @@ router.get('/logout',tokenValidation,async(req,res)=>{  //end point for logout f
         if(!isValidUser){
             res.status(401).json('Invalid Session Token');
         }else{
-            res.clearCookie('token', { httpOnly: true, sameSite: 'None', secure: true });
+            res.clearCookie('token', { httpOnly: true, sameSite: 'None', secure: process.env.NODE_ENV === 'production' });
             res.status(200).json('ok');
         }
     }catch(err){
