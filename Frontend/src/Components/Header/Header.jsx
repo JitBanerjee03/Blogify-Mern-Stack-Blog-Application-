@@ -52,7 +52,9 @@ const Header=()=>{
             <header className="border-bothrefm lh-1 py-4" style={{paddingLeft:"8%",paddingRight:"8%"}}>
                     <div className="row flex-nowrap justify-content-between align-items-center">
                     <div className="row flex-nowrap col-4">
-                        <img src='/blog.png' style={{width:"20%",height:"20%"}}/>
+                        <img src='/blog.png' style={{width:"20%",height:"20%"}}
+                            onClick={()=>navigate('/')}
+                        />
                         <span>
                             <h2 style={{marginRight:"10%"}}>Blogify</h2>  
                         </span>

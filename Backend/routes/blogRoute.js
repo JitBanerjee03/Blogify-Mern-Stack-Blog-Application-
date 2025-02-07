@@ -118,13 +118,11 @@ router.put('/downVoteBlog',tokenValidation,async(req,res)=>{  //end point to dow
     try{
 
         const blogData=await blog.findOne({_id:req.body.id});
-        console.log(blogData);
 
         if(!blogData){
             res.status(404).json('Resourse does not exists !');
         }else{
             const index=blogData.downVotedBy.findIndex(votes=>votes.userId.equals(req.user.id));
-            console.log(index);
 
             if(index!==-1){
                 res.status(400).json('Can downvote only once');
