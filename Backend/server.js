@@ -38,6 +38,8 @@ app.use('/addcategory',categoryRoute);
 const blogRoute=require('./routes/blogRoute');
 app.use('/blog',blogRoute);
 
-app.listen(3000,()=>{
+const portno=process.env.PORT || 3000;
+
+app.listen(portno,()=>{
     console.log('Server is live now!');
 })
