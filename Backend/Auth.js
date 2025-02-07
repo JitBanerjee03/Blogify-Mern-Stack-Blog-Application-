@@ -14,7 +14,6 @@ const tokenValidation=async(req,res,next)=>{
     try{
         const cookies=req.cookies;
         if(!cookies){
-            console.log('Hi');
             res.status(401).json('unauthorised Access');
         }else{
             const payLoad=await jwt.verify(cookies.token,process.env.JWT_SECKET_KEY);

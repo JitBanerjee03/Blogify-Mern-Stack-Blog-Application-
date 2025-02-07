@@ -17,7 +17,6 @@ router.post('/signup',async(req,res)=>{  //middleware to add new user in the dat
 
 router.post('/login',async(req,res)=>{  //middleware for login for a particular user
     try{
-       
         const isValidUser=await user.findOne({email:req.body.email});
         if(!isValidUser){
             res.status(401).json({message:"Unauthorised Access !"});
@@ -33,7 +32,7 @@ router.post('/login',async(req,res)=>{  //middleware for login for a particular 
                     user:isValidUser.firstName
                 }
                 const jwtToken=await generatesessionToken(payLoad);
-                res.cookie('token', jwtToken).json({ message: 'ok' });
+                res.cookie('token', jwtToken).json({ message: jwtToken });
             }
         }
     }catch(err){

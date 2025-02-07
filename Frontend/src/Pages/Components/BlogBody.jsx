@@ -47,7 +47,7 @@ const AddBlog=()=>{
         formData.set('Content',content.current.value);
 
         const postingDatainBackEnd=async()=>{
-            const fetchedData=await fetch('http://localhost:3000/blog/postBlog',{
+            const fetchedData=await fetch('https://blogify-mern-stack-blog-application.onrender.com/blog/postBlog',{
                 method:'POST',
                 credentials:'include',
                 body:formData

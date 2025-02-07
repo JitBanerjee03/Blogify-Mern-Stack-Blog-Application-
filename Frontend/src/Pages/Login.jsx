@@ -14,7 +14,7 @@ const Login=()=>{
     const LoginUser=async(event)=>{
         event.preventDefault();
 
-        const fetchedData=await fetch('http://localhost:3000/user/login',{
+        const fetchedData=await fetch('https://blogify-mern-stack-blog-application.onrender.com/user/login',{
             method:'POST',
             headers:{'Content-Type':'application/json'},
             credentials:'include',
@@ -25,8 +25,9 @@ const Login=()=>{
         })
         
         const isOk=await fetchedData.json();
-        if(isOk.message==='ok'){
-            validUser();
+        if(isOk.message.length!==0){
+            console.log(isOk.message);
+            await validUser();
             navigate('/');   
         }else{
             alert('Invalid Credentials!'); 
