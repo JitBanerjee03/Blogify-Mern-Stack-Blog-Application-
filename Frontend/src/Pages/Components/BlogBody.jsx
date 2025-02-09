@@ -45,7 +45,7 @@ const AddBlog=()=>{
         formData.set('Category',Category.current.value);
         formData.set('fileData',fileData);
         formData.set('Content',content.current.value);
-        
+        console.log('Hello World');
         console.log(`The fileData = ${formData.get('fileData')}`);
 
         const postingDatainBackEnd=async()=>{
