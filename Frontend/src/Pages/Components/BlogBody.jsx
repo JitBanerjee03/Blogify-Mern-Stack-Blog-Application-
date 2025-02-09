@@ -45,7 +45,9 @@ const AddBlog=()=>{
         formData.set('Category',Category.current.value);
         formData.set('fileData',fileData);
         formData.set('Content',content.current.value);
-
+        
+        console.log(`The fileData = ${formData.fileData}`);
+        
         const postingDatainBackEnd=async()=>{
             const fetchedData=await fetch('https://blogify-mern-stack-blog-application.onrender.com/blog/postBlog',{
                 method:'POST',
