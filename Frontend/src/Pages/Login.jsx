@@ -28,6 +28,7 @@ const Login=()=>{
         if(isOk.message.length!==0){
             console.log(isOk.message);
             await validUser();
+            console.log(isOk.message);
             navigate('/');   
         }else{
             alert('Invalid Credentials!'); 
