@@ -25,9 +25,7 @@ const Login=()=>{
         })
         
         if(fetchedData.status===200){
-            console.log(isOk.message);
             await validUser();
-            console.log(isOk.message);
             navigate('/');   
         }else{
             alert('Invalid Credentials!'); 
