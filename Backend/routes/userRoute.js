@@ -32,7 +32,7 @@ router.post('/login',async(req,res)=>{  //middleware for login for a particular 
                     user:isValidUser.firstName
                 }
                 const jwtToken=await generatesessionToken(payLoad);
-                res.cookie('token', jwtToken, { httpOnly: true, sameSite: 'None', secure: process.env.NODE_ENV === 'production' }).json({ message: jwtToken });
+                res.cookie('token', jwtToken, { httpOnly: true, sameSite: 'None', secure: process.env.NODE_ENV === 'production' }).status(200).json({ message: jwtToken });
             }
         }
     }catch(err){

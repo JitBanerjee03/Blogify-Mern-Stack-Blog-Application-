@@ -24,8 +24,8 @@ const Login=()=>{
             })
         })
         
-        const isOk=await fetchedData.json();
-        if(isOk.message.length!==0){
+        const statusCode=await fetchedData.status();
+        if(statusCode===200){
             console.log(isOk.message);
             await validUser();
             console.log(isOk.message);
