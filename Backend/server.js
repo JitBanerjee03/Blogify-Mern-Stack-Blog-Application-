@@ -5,7 +5,7 @@ const app=express();
 const db=require('./db');
 
 app.use(cookieParser())
-app.use(cors({credentials:true,origin:'https://blogify-mern-app-qptl.onrender.com'}));
+app.use(cors({credentials:true,origin:'http://localhost:5173'}));
 const bodyParser=require('body-parser');
 
 // parse application/x-www-form-urlencoded
@@ -40,6 +40,6 @@ app.use('/blog',blogRoute);
 
 const portno=process.env.PORT || 3000;
 
-app.listen(portno,()=>{
+app.listen(3000,()=>{
     console.log('Server is live now!');
 })

@@ -14,7 +14,7 @@ const Login=()=>{
     const LoginUser=async(event)=>{
         event.preventDefault();
 
-        const fetchedData=await fetch('https://blogify-mern-stack-blog-application.onrender.com/user/login',{
+        const fetchedData=await fetch('http://localhost:3000/user/login',{
             method:'POST',
             headers:{'Content-Type':'application/json'},
             credentials:'include',
@@ -25,6 +25,9 @@ const Login=()=>{
         })
         
         if(fetchedData.status===200){
+            const jsonData=await fetchedData.json();
+
+            console.log(jsonData.message);
             await validUser();
             navigate('/');   
         }else{

@@ -32,7 +32,7 @@ const ContextProvider=({children})=>{
     }
 
     const getAllBlogs=async()=>{
-        const fetchedData=await fetch('https://blogify-mern-stack-blog-application.onrender.com/blog/getAllBlogs',{
+        const fetchedData=await fetch('http://localhost:3000/blog/getAllBlogs',{
             headers:{'Content-Type':'application/json'},
             credentials:'include',
         })
@@ -42,7 +42,7 @@ const ContextProvider=({children})=>{
     }
 
     const getCategoryBlogs=async(category)=>{
-        const fetchedData=await fetch(`https://blogify-mern-stack-blog-application.onrender.com/blog/getAllBlogs/${category}`,{
+        const fetchedData=await fetch(`http://localhost:3000/blog/getAllBlogs/${category}`,{
             headers:{'Content-Type':'application/json'},
             credentials:'include',
         })
@@ -80,7 +80,7 @@ const ContextProvider=({children})=>{
 
     useEffect(()=>{
         const setAllCategories=async()=>{
-            const fetchedData=await fetch('https://blogify-mern-stack-blog-application.onrender.com/addcategory/',{
+            const fetchedData=await fetch('http://localhost:3000/addcategory/',{
                 method:'GET',
                 headers:{'Content-Type':'application/json'},
                 credentials:'include',
@@ -93,7 +93,7 @@ const ContextProvider=({children})=>{
         }
         
         const setInitialBlogPost=async()=>{
-            const fetchedData=await fetch('https://blogify-mern-stack-blog-application.onrender.com/blog/getAllBlogs',{
+            const fetchedData=await fetch('http://localhost:3000/blog/getAllBlogs',{
                 headers:{'Content-Type':'application/json'},
                 credentials:'include',
             })
@@ -114,7 +114,7 @@ const ContextProvider=({children})=>{
 
     const validUser=async()=>{
 
-        const fetchedData=await fetch('https://blogify-mern-stack-blog-application.onrender.com/user/profile',{
+        const fetchedData=await fetch('http://localhost:3000/user/profile',{
             method:'GET',
             headers:{'Content-Type':'application/json'},
             credentials:'include',
@@ -137,7 +137,7 @@ const ContextProvider=({children})=>{
     const [userDetails,setUserDetails]=useState();
 
     const handleUserDetail=async()=>{
-        const fetchedData=await fetch('https://blogify-mern-stack-blog-application.onrender.com/user/getUser',{
+        const fetchedData=await fetch('http://localhost:3000/user/getUser',{
             method:'GET',
             headers:{'Content-Type':'application/json'},
             credentials:'include',

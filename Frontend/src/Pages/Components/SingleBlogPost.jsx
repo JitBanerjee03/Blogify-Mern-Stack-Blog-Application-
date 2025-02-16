@@ -32,7 +32,7 @@ const SingleBlogPost=()=>{
                 </div>
 
                 <div className={`rounded text-body-emphasis bg-body-secondary ${css.imageDiv}`}>
-                    <img src={'https://blogify-mern-stack-blog-application.onrender.com/'+curSingleBlogPost.coverFilePath} class="img-fluid" alt="..."/>
+                    <img src={'http://localhost:3000/'+curSingleBlogPost.coverFilePath} class="img-fluid" alt="..."/>
                 </div>
             </div>
 
