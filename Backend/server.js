@@ -40,6 +40,6 @@ app.use('/blog',blogRoute);
 
 const portno=process.env.PORT || 3000;
 
-app.listen(portno,()=>{
+app.listen(3000,()=>{
     console.log('Server is live now!');
 })
