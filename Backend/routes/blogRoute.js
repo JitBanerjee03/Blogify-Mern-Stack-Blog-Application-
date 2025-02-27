@@ -7,7 +7,7 @@ const fs=require('fs');
 const jwt=require('jsonwebtoken');
 const { tokenValidation } = require('../Auth');
 const { default: mongoose } = require('mongoose');
-const cloudinary=require('cloudinary').v2;
+const cloudinary=require('cloudinary');
 const {cloudinaryStorage}=require('multer-storage-cloudinary');
 
 require('dotenv').config();
