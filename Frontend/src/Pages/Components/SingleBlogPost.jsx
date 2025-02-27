@@ -32,7 +32,7 @@ const SingleBlogPost=()=>{
                 </div>
 
                 <div className={`rounded text-body-emphasis bg-body-secondary ${css.imageDiv}`}>
-                    <img src={'http://localhost:3000/'+curSingleBlogPost.coverFilePath} class="img-fluid" alt="..."/>
+                    <img src={curSingleBlogPost.coverFilePath} class="img-fluid" alt="..."/>
                 </div>
             </div>
 

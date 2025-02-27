@@ -7,9 +7,23 @@ const fs=require('fs');
 const jwt=require('jsonwebtoken');
 const { tokenValidation } = require('../Auth');
 const { default: mongoose } = require('mongoose');
+const cloudinary=require('cloudinary').v2;
+const {cloudinaryStorage}=require('multer-storage-cloudinary');
+
 require('dotenv').config();
 
 const router=express.Router();
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME, 
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
+});
+
+const uploadCloudinary=async(file)=>{
+    const responseCloudinary=await cloudinary.uploader.upload(file);
+    return responseCloudinary;
+}
 
 router.get('/getAllBlogs',async(req,res)=>{  //end point to get all blog data
     try{
@@ -43,6 +57,7 @@ router.post('/postBlog',uploadMiddleWare.single('fileData'),async(req,res)=>{  /
                 fs.renameSync(path,newPath);
 
                 const blogData=new blog();
+                const responseCloudinary=await uploadCloudinary(newPath);
 
                 blogData.title=req.body.Title;
                 blogData.summary=req.body.Summary;
@@ -50,10 +65,11 @@ router.post('/postBlog',uploadMiddleWare.single('fileData'),async(req,res)=>{  /
                 blogData.content=req.body.Content;
                 blogData.postedBy=isValidUser._id;
                 blogData.postedAt=Date.now();
-                blogData.coverFilePath=newPath;
+                blogData.coverFilePath=responseCloudinary.url;
                 const responseData=await blogData.save();
-
-                res.status(200).json(blogData);
+            
+                console.log(newPath);
+                res.status(200).json(responseData);
             }
         }
     }catch(err){
