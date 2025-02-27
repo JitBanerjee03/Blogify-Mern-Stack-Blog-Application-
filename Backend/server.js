@@ -5,7 +5,7 @@ const app=express();
 const db=require('./db');
 
 app.use(cookieParser())
-app.use(cors({credentials:true,origin:'https://blogify-61pc.onrender.com/'}));
+app.use(cors({credentials:true}));
 const bodyParser=require('body-parser');
 
 // parse application/x-www-form-urlencoded
