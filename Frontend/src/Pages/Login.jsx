@@ -14,7 +14,7 @@ const Login=()=>{
     const LoginUser=async(event)=>{
         event.preventDefault();
 
-        const fetchedData=await fetch('https://blogify-backend-66km.onrender.com/user/login',{
+        const fetchedData=await fetch('http://localhost:3000/user/login',{
             method:'POST',
             headers:{'Content-Type':'application/json'},
             credentials:'include',

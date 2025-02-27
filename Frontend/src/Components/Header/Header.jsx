@@ -19,7 +19,7 @@ const Header=()=>{
     const logOut=async()=>{
         const validUser=async()=>{
 
-            const fetchedData=await fetch('https://blogify-backend-66km.onrender.com/user/logout',{
+            const fetchedData=await fetch('http://localhost:3000/user/logout',{
                 method:'GET',
                 headers:{'Content-Type':'application/json'},
                 credentials:'include',

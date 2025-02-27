@@ -15,7 +15,7 @@ const ContentBody=({blogItem,handleSingleBlogPost,setBlogContent})=>{
     const onClickEventSinglePost=async(event)=>{
         event.preventDefault();
         
-        const fetchedData=await fetch('https://blogify-backend-66km.onrender.com/user/profile',{
+        const fetchedData=await fetch('http://localhost:3000/user/profile',{
             method:'GET',
             headers:{'Content-Type':'application/json'},
             credentials:'include',
@@ -32,7 +32,7 @@ const ContentBody=({blogItem,handleSingleBlogPost,setBlogContent})=>{
     }
 
     const handleUpvote=async(blogItem)=>{
-        const fetchedData=await fetch('https://blogify-backend-66km.onrender.com/blog/upVoteBlog',{
+        const fetchedData=await fetch('http://localhost:3000/blog/upVoteBlog',{
             method:'PUT',
             headers:{'Content-Type':'application/json'},
             credentials:'include',
@@ -51,7 +51,7 @@ const ContentBody=({blogItem,handleSingleBlogPost,setBlogContent})=>{
     }
 
     const handleDownvote=async(blogItem)=>{
-        const fetchedData=await fetch('https://blogify-backend-66km.onrender.com/blog/downVoteBlog',{
+        const fetchedData=await fetch('http://localhost:3000/blog/downVoteBlog',{
             method:'PUT',
             headers:{'Content-Type':'application/json'},
             credentials:'include',
