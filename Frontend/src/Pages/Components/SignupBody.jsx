@@ -25,7 +25,7 @@ const SignUpBody=({countryList})=>{
     const addNewUser=async(event)=>{
         event.preventDefault();
         if(password.current.value===comfirmPassword.current.value){
-            const fetchedData=await fetch('http://localhost:3000/user/signup',{
+            const fetchedData=await fetch('https://blogify-frontend-90q1.onrender.com/user/signup',{
                 method:'POST',
                 headers:{'Content-Type':'application/json'},
                 body:JSON.stringify({
