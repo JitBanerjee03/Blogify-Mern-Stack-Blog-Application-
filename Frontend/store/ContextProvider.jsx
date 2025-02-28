@@ -80,7 +80,7 @@ const ContextProvider=({children})=>{
 
     useEffect(()=>{
         const setAllCategories=async()=>{
-            const fetchedData=await fetch('https://blogify-frontend-90q1.onrender.com/addcategory/',{
+            const fetchedData=await fetch('https://blogify-frontend-90q1.onrender.com/addcategory',{
                 method:'GET',
                 headers:{'Content-Type':'application/json'},
                 credentials:'include',
