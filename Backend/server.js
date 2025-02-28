@@ -9,7 +9,7 @@ app.use(cors({credentials:true}));
 const bodyParser=require('body-parser');
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false,origin:'http://localhost:5173/'}));
+app.use(bodyParser.urlencoded({ extended: false}));
 
 // parse application/json
 app.use(bodyParser.json())
