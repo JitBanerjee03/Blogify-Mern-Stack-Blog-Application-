@@ -5,7 +5,7 @@ const app=express();
 const db=require('./db');
 
 app.use(cookieParser())
-app.use(cors({credentials:true,origin:'https://blogify-app-tau.vercel.app/'}));
+app.use(cors({credentials:true,origin:'https://blogify-7xy3.onrender.com'}));
 const bodyParser=require('body-parser');
 
 // parse application/x-www-form-urlencoded
