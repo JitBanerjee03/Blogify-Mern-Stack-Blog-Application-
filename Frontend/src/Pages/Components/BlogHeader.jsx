@@ -13,7 +13,7 @@ const BlogHeader=()=>{
 
     const validUser=async()=>{
 
-        const fetchedData=await fetch('https://blogify-frontend-90q1.onrender.com/user/logout',{
+        const fetchedData=await fetch('https://blogify-backend-gyue.onrender.com/user/logout',{
             method:'GET',
             headers:{'Content-Type':'application/json'},
             credentials:'include',

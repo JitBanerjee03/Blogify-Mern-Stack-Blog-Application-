@@ -50,7 +50,7 @@ const AddBlog=()=>{
         console.log(`The fileData = ${formData.get('fileData')}`);
 
         const postingDatainBackEnd=async()=>{
-            const fetchedData=await fetch('https://blogify-frontend-90q1.onrender.com/blog/postBlog',{
+            const fetchedData=await fetch('https://blogify-backend-gyue.onrender.com/blog/postBlog',{
                 method:'POST',
                 credentials:'include',
                 body:formData
