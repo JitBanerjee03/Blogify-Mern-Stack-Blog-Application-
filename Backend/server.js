@@ -5,11 +5,11 @@ const app=express();
 const db=require('./db');
 
 app.use(cookieParser())
-app.use(cors({credentials:true}));
+app.use(cors({credentials:true,origin:'http://localhost:5173'}));
 const bodyParser=require('body-parser');
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false,origin:'http://localhost:5173'}));
+app.use(bodyParser.urlencoded({ extended: false}));
 
 // parse application/json
 app.use(bodyParser.json())
